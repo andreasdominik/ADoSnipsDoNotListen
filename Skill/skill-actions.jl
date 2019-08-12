@@ -96,9 +96,9 @@ function triggerListenAction(topic, payload)
 
     stopStartListening(mode = command)
     if command == "stop"
-        Snips.publishEndSession(:stop_listening)
+        Snips.publishSay(:stop_listening)
     else
-        Snips.publishEndSession(:start_listening)
+        Snips.publishSay(:start_listening)
     end
 
     return false
