@@ -11,36 +11,48 @@
 #   as Symbols (Julia-style)
 #
 """
-function templateAction(topic, payload)
+function stopListenAction(topic, payload)
 
-    Dummyaction for the template.
+    Stop listening
 """
-function templateAction(topic, payload)
+function stopListenAction(topic, payload)
 
     # log:
-    println("[ADoSnipsTemplate]: action templateAction() started.")
-    Snips.printDebug("""Intent: $(Snips.getIntent())""")
+    println("[stopListenAction]: action stopListenAction() started.")
 
-    # get my name from config.ini:
+    # doublecheck command:
     #
-    myName = Snips.getConfig(INI_MY_NAME)
-    if myName == nothing
-        Snips.publishEndSession(:noname)
-        return false
+    if !occursin(r"^(?bitte |)hör. (?weg|nicht mehr zu)$"i, payload[:input])
+        println("[stopListenAction]: Aborted because of false activation!")
+        Snips.publishEndSession("")
     end
 
-    # get the word to repeat from slot:
+    stopStartListening(mode = :stop)
+    Snips.publishEndSession(:stop_listening)
+    return true
+end
+
+
+
+
+"""
+function startListenAction(topic, payload)
+
+    Start listening
+"""
+function startListenAction(topic, payload)
+
+    # log:
+    println("[startListenAction]: action startListenAction() started.")
+
+    # doublecheck command:
     #
-    word = Snips.extractSlotValue(payload, SLOT_WORD)
-    if word == nothing
-        Snips.publishEndSession(:dunno)
-        return true
+    if !occursin(r"^(?bitte |)hör. (?wieder |)zu$"i, payload[:input])
+        println("[startListenAction]: Aborted because of false activation!")
+        Snips.publishEndSession("")
     end
 
-    # say who you are:
-    #
-    Snips.publishSay(:bravo)
-    Snips.publishEndSession("""$(Snips.langText(:iam)) $myName.
-                            $(Snips.langText(:isay)) $word""")
+    stopStartListening(moder = :start)
+    Snips.publishEndSession(:start_listening)
     return true
 end
