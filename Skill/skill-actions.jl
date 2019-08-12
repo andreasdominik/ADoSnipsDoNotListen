@@ -52,7 +52,54 @@ function startListenAction(topic, payload)
         Snips.publishEndSession("")
     end
 
-    stopStartListening(moder = :start)
+    stopStartListening(mode = :start)
     Snips.publishEndSession(:start_listening)
-    return true
+    return false
+end
+
+
+#
+# TRIGGER:
+#
+
+"""
+    triggerListenAction(topic, payload)
+
+The trigger must have the following JSON format:
+    {
+      "target" : "qnd/trigger/andreasdominik:ADoSnipsListen",
+      "origin" : "ADoSnipsScheduler",
+      "sessionId": "1234567890abcdef",
+      "siteId" : "default",
+      "time" : "timeString",
+      "trigger" : {
+        "room" : "default",
+        "command" : "stop"   // or "start"
+      }
+    }
+"""
+function triggerListenAction(topic, payload)
+
+    println("[ADoSnipsDoNotListen]: action triggerListenAction() started.")
+
+    # text if trigger is complete:
+    #
+    payload isa Dict || return false
+    haskey( payload, :trigger) || return false
+    trigger = payload[:trigger]
+
+    #haskey(trigger, :room) || return false
+
+    haskey(trigger, :command) || return false
+    trigger[:command] in ["stop", "start"] || return false
+    command = trigger[:command]
+
+    stopStartListening(mode = command)
+    if command == "stop"
+        Snips.publishEndSession(:stop_listening)
+    else
+        Snips.publishEndSession(:start_listening)
+    end
+
+    return false
 end
