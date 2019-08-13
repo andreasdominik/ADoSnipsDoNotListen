@@ -21,11 +21,11 @@ Snips.setModule(@__MODULE__)
 # Slots:
 # Name of slots to be extracted from intents:
 #
-const SLOT_WORD = "a_word"
+# const SLOT_WORD = "a_word"
 
 # name of entry in config.ini:
 #
-const INI_MY_NAME = "my_name"
+# const INI_MY_NAME = "my_name"
 
 #
 # link between actions and intents:
@@ -38,9 +38,15 @@ const INI_MY_NAME = "my_name"
 # Language-dependent settings:
 #
 if LANG == "de"
-    Snips.registerIntentAction("pleaseRepeatDE", templateAction)
-elseif LANG == "en"
-    Snips.registerIntentAction("pleaseRepeatEN", templateAction)
+    Snips.registerIntentAction("ListenAgainDE", startListenAction)
+    Snips.registerIntentAction("DoNotListenDE", stopListenAction)
+    const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainDE"
+    const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenDE"
+# elseif LANG == "en"
+#     Snips.registerIntentAction("pleaseRepeatEN", templateAction)
 else
-    Snips.registerIntentAction("pleaseRepeatEN", templateAction)
+    Snips.registerIntentAction("ListenAgainDE", startListenAction)
+    Snips.registerIntentAction("DoNotListenDE", stopListenAction)
+    const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainDE"
+    const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenDE"
 end
