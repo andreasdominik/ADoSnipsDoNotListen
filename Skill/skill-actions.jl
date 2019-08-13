@@ -56,7 +56,10 @@ function startListenAction(topic, payload)
 
     stopStartListening(mode = :start)
     Snips.publishEndSession(:start_listening)
-    return false
+
+    # normally we want to say a command afterwards!
+    #
+    return true
 end
 
 
