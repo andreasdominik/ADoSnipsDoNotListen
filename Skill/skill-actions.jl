@@ -25,6 +25,7 @@ function stopListenAction(topic, payload)
     if !occursin(REGEX_STOP, payload[:input])
         println("[stopListenAction]: Aborted because of false activation!")
         Snips.publishEndSession("")
+        return false
     end
 
     stopStartListening(mode = :stop)
@@ -50,6 +51,7 @@ function startListenAction(topic, payload)
     if !occursin(REGEX_START, payload[:input])
         println("[startListenAction]: Aborted because of false activation!")
         Snips.publishEndSession("")
+        return false
     end
 
     stopStartListening(mode = :start)
@@ -92,10 +94,10 @@ function triggerListenAction(topic, payload)
 
     haskey(trigger, :command) || return false
     trigger[:command] in ["stop", "start"] || return false
-    command = trigger[:command]
+    command = Symbol(trigger[:command])
 
     stopStartListening(mode = command)
-    if command == "stop"
+    if command == :stop
         Snips.publishSay(:stop_listening)
     else
         Snips.publishSay(:start_listening)
