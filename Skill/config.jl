@@ -46,8 +46,15 @@ if LANG == "de"
 
     const REGEX_STOP = r"^(?:bitte |)hör.?(?: bitte|) (?:weg|nicht mehr zu)$"i
     const REGEX_START = r"^(?:bitte |)hör.?(?: bitte|) (?:wieder zu|zu)$"i
-# elseif LANG == "en"
-#     Snips.registerIntentAction("pleaseRepeatEN", templateAction)
+elseif LANG == "en"
+    Snips.registerIntentAction("ListenAgainEN", startListenAction)
+    Snips.registerIntentAction("DoNotListenEN", stopListenAction)
+
+    const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainEN"
+    const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenEN"
+
+    const REGEX_STOP = r"^(?:please |)stop listen(?:ing|)$"i
+    const REGEX_START = r"^(?:please |)listen again$"i
 else
     Snips.registerIntentAction("ListenAgainDE", startListenAction)
     Snips.registerIntentAction("DoNotListenDE", stopListenAction)

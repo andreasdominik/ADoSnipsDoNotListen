@@ -5,7 +5,7 @@ written in Julia.
 
 Aim of the skill is, to make the assistant stop listening, either
 - by utting a command "stop listening" (de: "hör' weg")
-- or by sening a trigger (stop listening when the TV is
+- or by sending a trigger (stop listening when the TV is
   switched on).
 
 While Snips is not listening, all intents are disabled and the
@@ -14,6 +14,9 @@ second intent to wake up the assistant again is enabled, but the
 intent will only activated if the exact command "listen again"
 (de: "hör' wieder zu")
 is received.
+
+Currently only English and German language is supported.
+
 
 
  The full documentation is just work-in-progress!
