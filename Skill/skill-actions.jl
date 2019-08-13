@@ -75,7 +75,6 @@ The trigger must have the following JSON format:
       "siteId" : "default",
       "time" : "timeString",
       "trigger" : {
-        "room" : "default",
         "command" : "stop"   // or "start"
       }
     }
