@@ -47,7 +47,11 @@ function gatherIntents()
 
     intents = String[]
     for one in keys(config)
-        append!(intents, config[one])
+        if config[one] isa AbstractString
+            push!(intents, config[one])
+        else
+            append!(intents, config[one])
+        end
     end
     return intents
 end
