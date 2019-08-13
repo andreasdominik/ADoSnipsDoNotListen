@@ -40,13 +40,21 @@ Snips.setModule(@__MODULE__)
 if LANG == "de"
     Snips.registerIntentAction("ListenAgainDE", startListenAction)
     Snips.registerIntentAction("DoNotListenDE", stopListenAction)
+
     const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainDE"
     const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenDE"
+
+    const REGEX_STOP = r"^(?:bitte |)hör. (?:weg|nicht mehr zu)$"i
+    const REGEX_START = r"^(?:bitte |)hör. (?:wieder |)zu$"i
 # elseif LANG == "en"
 #     Snips.registerIntentAction("pleaseRepeatEN", templateAction)
 else
     Snips.registerIntentAction("ListenAgainDE", startListenAction)
     Snips.registerIntentAction("DoNotListenDE", stopListenAction)
+    
     const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainDE"
     const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenDE"
+
+    const REGEX_STOP = r"^(?:bitte |)hör. (?:weg|nicht mehr zu)$"i
+    const REGEX_START = r"^(?:bitte |)hör. (?:wieder |)zu$"i
 end

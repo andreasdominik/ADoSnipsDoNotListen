@@ -5,7 +5,7 @@
 
 function stopStartListening(;mode = :stop)
 
-    if mode == stop
+    if mode == :stop
         enable = false
         toggle = "toggleOff"
     else
@@ -15,6 +15,8 @@ function stopStartListening(;mode = :stop)
 
     intents = gatherIntents()
 
+    Snips.printDebug("intents: $intents")
+
     # disable all intents explicitly.
     # make payload with all intents:
     #
@@ -22,17 +24,19 @@ function stopStartListening(;mode = :stop)
     intentsList = [Dict(:intentId => intent, :enable => enable) for intent in intents]
 
     payload = Dict(:siteId => Snips.getSiteId(),
-                   :intents => intentList)
-    publishMQTT(topic, payload)
+                   :intents => intentsList)
+    Snips.printDebug("payload: $payload")
+
+    Snips.publishMQTT(topic, payload)
 
     # enable listen-again:
     #
     payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => !enable)]
-    publishMQTT(topic, payload)
+    Snips.publishMQTT(topic, payload)
 
     # turn off sounds:
     #
-    publishMQTT("hermes/feedback/sound/$toggle", Dict(:siteId => Snips.getSiteId()))
+    Snips.publishMQTT("hermes/feedback/sound/$toggle", Dict(:siteId => Snips.getSiteId()))
 end
 
 
@@ -42,8 +46,8 @@ and makes one big list of Strings.
 """
 function gatherIntents()
 
-    rgx = Regex("^intents_:")
-    config = filter(p->occursin(rgx, String(p.first)), getAllConfig())
+    rgx = Regex("^intents_")
+    config = filter(p->occursin(rgx, String(p.first)), Snips.getAllConfig())
 
     intents = String[]
     for one in keys(config)

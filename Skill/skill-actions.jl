@@ -22,7 +22,7 @@ function stopListenAction(topic, payload)
 
     # doublecheck command:
     #
-    if !occursin(r"^(?bitte |)hör. (?weg|nicht mehr zu)$"i, payload[:input])
+    if !occursin(REGEX_STOP, payload[:input])
         println("[stopListenAction]: Aborted because of false activation!")
         Snips.publishEndSession("")
     end
@@ -47,7 +47,7 @@ function startListenAction(topic, payload)
 
     # doublecheck command:
     #
-    if !occursin(r"^(?bitte |)hör. (?wieder |)zu$"i, payload[:input])
+    if !occursin(REGEX_START, payload[:input])
         println("[startListenAction]: Aborted because of false activation!")
         Snips.publishEndSession("")
     end
