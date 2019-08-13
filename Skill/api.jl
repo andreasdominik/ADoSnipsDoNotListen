@@ -10,7 +10,7 @@ function stopStartListening(;mode = :stop)
         toggle = "toggleOff"
     else
         enable = true
-        toggle = toggleOn
+        toggle = "toggleOn"
     end
 
     intents = gatherIntents()
@@ -18,14 +18,16 @@ function stopStartListening(;mode = :stop)
     # disable all intents explicitly.
     # make payload with all intents:
     #
+    topic = "hermes/dialogueManager/configure"
     intentsList = [Dict(:intentId => intent, :enable => enable) for intent in intents]
 
-    topic = "hermes/dialogueManager/configure"
     payload = Dict(:siteId => Snips.getSiteId(),
                    :intents => intentList)
+    publishMQTT(topic, payload)
 
-    # publish:
+    # enable listen-again:
     #
+    payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => !enable)]
     publishMQTT(topic, payload)
 
     # turn off sounds:
