@@ -22,7 +22,7 @@ function stopListenAction(topic, payload)
 
     # doublecheck command:
     #
-    Snips.printDebug("""[STOP_LISTEN doubelecheck] command: "$payload[:input]", regex: "$REGEX_STOP" """)
+    Snips.printDebug("""[STOP_LISTEN doubelecheck] command: "$(payload[:input])", regex: "$REGEX_STOP" """)
     if !occursin(REGEX_STOP, payload[:input])
         println("[stopListenAction]: Aborted because of false activation!")
         Snips.publishEndSession("")
@@ -49,7 +49,7 @@ function startListenAction(topic, payload)
 
     # doublecheck command:
     #
-    Snips.printDebug("""[START_LISTEN doubelecheck] command: "$payload[:input]", regex: "$REGEX_START" """)
+    Snips.printDebug("""[START_LISTEN doubelecheck] command: "$(payload[:input])", regex: "$REGEX_START" """)
     if !occursin(REGEX_START, payload[:input])
         println("[startListenAction]: Aborted because of false activation!")
         Snips.publishEndSession("")
