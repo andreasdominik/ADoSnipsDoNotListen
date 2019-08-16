@@ -23,10 +23,6 @@ function callbackRun(fun, topic, payload)
         Snips.setIntent(topic)
 
         if Snips.isFalseDetection(payload)
-            println("[$(Snips.getIntent())]: Intent $(Snips.getIntent()) aborted.")
-            println("                    false detection recognised for command:")
-            println("                    $(payload[:input]).")
-
             Snips.publishEndSession("")
             return false
         end
