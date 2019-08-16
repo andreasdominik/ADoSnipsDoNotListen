@@ -37,6 +37,8 @@ Snips.setModule(@__MODULE__)
 #
 # Language-dependent settings:
 #
+Snips.registerTriggerAction("ADoSnipsListen", triggerListenAction)
+
 if LANG == "de"
     Snips.registerIntentAction("ListenAgainDE", startListenAction)
     Snips.registerIntentAction("DoNotListenDE", stopListenAction)
