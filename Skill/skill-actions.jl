@@ -45,7 +45,7 @@ function startListenAction(topic, payload)
 function startListenAction(topic, payload)
 
     # log:
-    Snips.printlog("action startListenAction() started.")
+    Snips.printLog("action startListenAction() started.")
 
     # doublecheck command:
     #
