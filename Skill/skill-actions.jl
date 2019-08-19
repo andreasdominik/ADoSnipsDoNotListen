@@ -18,13 +18,13 @@ function stopListenAction(topic, payload)
 function stopListenAction(topic, payload)
 
     # log:
-    println("[stopListenAction]: action stopListenAction() started.")
+    Snips.printLog("action stopListenAction() started.")
 
     # doublecheck command:
     #
     Snips.printDebug("""[STOP_LISTEN doubelecheck] command: "$(payload[:input])", regex: "$REGEX_STOP" """)
     if !occursin(REGEX_STOP, payload[:input])
-        println("[stopListenAction]: Aborted because of false activation!")
+        Snips.printLog("[stopListenAction]: Aborted because of false activation!")
         Snips.publishEndSession("")
         return false
     end
@@ -45,13 +45,13 @@ function startListenAction(topic, payload)
 function startListenAction(topic, payload)
 
     # log:
-    println("[startListenAction]: action startListenAction() started.")
+    Snips.printlog("action startListenAction() started.")
 
     # doublecheck command:
     #
     Snips.printDebug("""[START_LISTEN doubelecheck] command: "$(payload[:input])", regex: "$REGEX_START" """)
     if !occursin(REGEX_START, payload[:input])
-        println("[startListenAction]: Aborted because of false activation!")
+        Snips.printLog("Aborted because of false activation!")
         Snips.publishEndSession("")
         return false
     end
@@ -86,7 +86,7 @@ The trigger must have the following JSON format:
 """
 function triggerListenAction(topic, payload)
 
-    println("[ADoSnipsDoNotListen]: action triggerListenAction() started.")
+    Snips.printLog("action triggerListenAction() started.")
 
     # test if trigger is complete:
     #
