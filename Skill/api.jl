@@ -20,12 +20,12 @@ function stopStartListening(;mode = :stop)
     # disable all intents explicitly.
     # make payload with all intents:
     #
-    topic = "hermes/dialogueManager/configure"
+    topic = TOPIC_NLU_INTENT_FILTER
     intentsList = [Dict(:intentId => intent, :enable => enable) for intent in intents]
 
     payload = Dict(:siteId => Snips.getSiteId(),
                    :intents => intentsList)
-    Snips.printDebug("payload: $payload")
+    # Snips.printDebug("payload: $payload")
 
     Snips.publishMQTT(topic, payload)
 

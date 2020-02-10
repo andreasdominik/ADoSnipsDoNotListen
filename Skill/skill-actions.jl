@@ -20,18 +20,9 @@ function stopListenAction(topic, payload)
     # log:
     Snips.printLog("action stopListenAction() started.")
 
-    # doublecheck command:
-    #
-    Snips.printDebug("""[STOP_LISTEN doubelecheck] command: "$(payload[:input])", regex: "$REGEX_STOP" """)
-    if !occursin(REGEX_STOP, payload[:input])
-        Snips.printLog("[stopListenAction]: Aborted because of false activation!")
-        Snips.publishEndSession("")
-        return false
-    end
-
     stopStartListening(mode = :stop)
     Snips.publishEndSession(:stop_listening)
-    return true
+    return false   # no command afterwards
 end
 
 
@@ -46,15 +37,6 @@ function startListenAction(topic, payload)
 
     # log:
     Snips.printLog("action startListenAction() started.")
-
-    # doublecheck command:
-    #
-    Snips.printDebug("""[START_LISTEN doubelecheck] command: "$(payload[:input])", regex: "$REGEX_START" """)
-    if !occursin(REGEX_START, payload[:input])
-        Snips.printLog("Aborted because of false activation!")
-        Snips.publishEndSession("")
-        return false
-    end
 
     stopStartListening(mode = :start)
     Snips.publishEndSession(:start_listening)

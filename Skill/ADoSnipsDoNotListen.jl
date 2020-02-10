@@ -23,6 +23,7 @@ Snips.setLanguage(Snips.getConfig(:language))
 Snips.setAppDir(APP_DIR)
 Snips.setAppName(APP_NAME)
 
+include("../../../Susi/src/Tools/topics.sh")
 include("api.jl")
 include("skill-actions.jl")
 include("languages.jl")
