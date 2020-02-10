@@ -40,6 +40,20 @@ function stopStartListening(;mode = :stop)
 end
 
 
+
+function resetListening()
+
+    topic = TOPIC_NLU_RESET_INTENT_FILTER
+    payload = Dict(:siteId => Snips.getSiteId())
+
+    Snips.publishMQTT(topic, payload)
+
+    # turn on sounds:
+    #
+    Snips.publishMQTT("hermes/feedback/sound/toggleOn", Dict(:siteId => Snips.getSiteId()))
+end
+
+
 """
 takes all config.ini lines with intents_<something>:
 and makes one big list of Strings.

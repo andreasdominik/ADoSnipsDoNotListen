@@ -38,7 +38,7 @@ function startListenAction(topic, payload)
     # log:
     Snips.printLog("action startListenAction() started.")
 
-    stopStartListening(mode = :start)
+    resetListening()
     Snips.publishEndSession(:start_listening)
 
     # normally we want to say a command afterwards!
