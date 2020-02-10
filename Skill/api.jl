@@ -3,7 +3,7 @@
 # skill-actions:
 #
 
-function stopStartListening(;mode = :stop)
+function stopStartListening(;mode = :stop, siteId = "default")
 
     if mode == :stop
         enable = false
@@ -23,7 +23,7 @@ function stopStartListening(;mode = :stop)
     topic = TOPIC_NLU_INTENT_FILTER
     intentsList = [Dict(:intentId => intent, :enable => enable) for intent in intents]
 
-    payload = Dict(:siteId => Snips.getSiteId(),
+    payload = Dict(:siteId => siteId,
                    :intents => intentsList)
     # Snips.printDebug("payload: $payload")
 
@@ -36,15 +36,15 @@ function stopStartListening(;mode = :stop)
 
     # turn off sounds:
     #
-    Snips.publishMQTT("hermes/feedback/sound/$toggle", Dict(:siteId => Snips.getSiteId()))
+    Snips.publishMQTT("hermes/feedback/sound/$toggle", Dict(:siteId => siteId))
 end
 
 
 
-function resetListening()
+function resetListening(; siteId = "default")
 
     topic = TOPIC_NLU_RESET_INTENT_FILTER
-    payload = Dict(:siteId => Snips.getSiteId())
+    payload = Dict(:siteId => siteId)
 
     Snips.publishMQTT(topic, payload)
 
