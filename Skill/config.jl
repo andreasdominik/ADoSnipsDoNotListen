@@ -37,33 +37,10 @@ Snips.setModule(@__MODULE__)
 #
 # Language-dependent settings:
 #
+const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgain"
+const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListen"
+
 Snips.registerTriggerAction("ADoSnipsListen", triggerListenAction)
 
-if LANG == "de"
-    Snips.registerIntentAction("ListenAgainDE", startListenAction)
-    Snips.registerIntentAction("DoNotListenDE", stopListenAction)
-
-    const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainDE"
-    const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenDE"
-
-    const REGEX_STOP = r"^(?:bitte |)hör.?(?: bitte|) (?:weg|nicht mehr zu)$"i
-    const REGEX_START = r"^(?:bitte |)hör.?(?: bitte|) (?:wieder zu|zu)$"i
-elseif LANG == "en"
-    Snips.registerIntentAction("ListenAgainEN", startListenAction)
-    Snips.registerIntentAction("DoNotListenEN", stopListenAction)
-
-    const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainEN"
-    const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenEN"
-
-    const REGEX_STOP = r"^(?:please |)stop listen(?:ing|)$"i
-    const REGEX_START = r"^(?:please |)listen again$"i
-else
-    Snips.registerIntentAction("ListenAgainDE", startListenAction)
-    Snips.registerIntentAction("DoNotListenDE", stopListenAction)
-
-    const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgainDE"
-    const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListenDE"
-
-    const REGEX_STOP = r"^(?:bitte |)hör.?(?: bitte|) (?:weg|nicht mehr zu)$"i
-    const REGEX_START = r"^(?:bitte |)hör.?(?: bitte|) (?:wieder zu|zu)$"i
-end
+Snips.registerIntentAction("ListenAgain", startListenAction)
+Snips.registerIntentAction("DoNotListen", stopListenAction)
