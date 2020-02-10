@@ -82,10 +82,11 @@ function triggerListenAction(topic, payload)
     trigger[:command] in ["stop", "start"] || return false
     command = Symbol(trigger[:command])
 
-    stopStartListening(mode = command)
     if command == :stop
+        stopStartListening(mode = command)
         Snips.publishSay(:stop_listening)
     else
+        resetListening()
         Snips.publishSay(:start_listening)
     end
 
