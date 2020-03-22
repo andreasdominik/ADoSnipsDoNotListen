@@ -21,8 +21,9 @@ slots = []
 #
 
 [DoNotListen]
-do_not_listen_a = "exact: (?:bitte |)hör.?(?: bitte|) (?:weg|nicht mehr zu)"
+do_not_listen_a = "exact: <<bitte|>> hör.? <<bitte|>> <<weg|nicht mehr zu>>"
 do_not_listen_b = "exact: sei taub"
+do_not_listen_c = "exact: sei still"
 
 [ListenAgain]
-listen_again = "exact: (?:bitte |)hör.?(?: bitte|) (?:wieder zu|zu)"
+listen_again = "exact: <<bitte|>> hör.? <<bitte|>> <<wieder zu|zu>>"

@@ -1,0 +1,29 @@
+# Intent definition for Calendar skill
+#
+#  (c) A. Dominik, 2020
+#
+skill = "ADoSnipsDoNotListen"
+developer = "andreasdominik"
+
+
+[inventory]
+intents = ["DoNotListen", "ListenAgain"]
+slots = []
+
+
+# define slots:
+# Types: "Any", "ListOfValues", "Time", "Duration", "Currency", "Number", "Ordinal"
+#
+
+
+# define phrases for intent recognition:
+# "exact", "regex", "partial", "ordered"
+#
+
+[DoNotListen]
+do_not_listen_a = "exact: <<please|>> stop <<listening|listen>> <<please|>>"
+do_not_listen_b = "exact: shut up"
+do_not_listen_c = "exact: <<dont|don t|do not>> listen"
+
+[ListenAgain]
+listen_again = "exact: <<please|>> <<listen again|listen>> <<please|>>"
