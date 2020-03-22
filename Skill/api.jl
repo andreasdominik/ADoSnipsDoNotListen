@@ -31,6 +31,7 @@ function stopStartListening(;mode = :stop, siteId = "default")
 
     # enable listen-again:
     #
+    topic = TOPIC_NLU_INTENT_FILTER
     payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => !enable)]
     Snips.publishMQTT(topic, payload)
 

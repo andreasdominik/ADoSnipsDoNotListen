@@ -26,7 +26,7 @@ const LANG = Snips.getLanguage()
 #
 # END OF DO-NOT-CHANGE.
 
-# const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgain"
+const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgain"
 # const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListen"
 
 Snips.registerIntentAction("ListenAgain", startListenAction)
