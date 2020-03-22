@@ -50,7 +50,8 @@ function resetListening(; siteId = "default")
 
     # turn on sounds:
     #
-    Snips.publishMQTT("hermes/feedback/sound/toggleOn", Dict(:siteId => Snips.getSiteId()))
+    topic = TOPIC_NOTIFICATION_ON
+    Snips.publishMQTT(toptc, Dict(:siteId => Snips.getSiteId()))
 end
 
 
