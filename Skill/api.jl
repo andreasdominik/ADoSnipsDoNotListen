@@ -42,6 +42,12 @@ function resetListening(siteId)
     payload = Dict(:siteId => siteId)
     Snips.publishMQTT(topic, payload)
 
+    payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => true)]
+    Snips.publishMQTT(topic, payload)
+
+    # turn off sounds:
+    #
+    Snips.publishMQTT(TOPIC_NOTIFICATION_OFF, Dict(:siteId => siteId))
     # payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => false)]
     # Snips.publishMQTT(topic, payload)
     #
