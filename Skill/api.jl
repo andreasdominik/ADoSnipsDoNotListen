@@ -40,15 +40,14 @@ function resetListening(siteId)
 
     topic = TOPIC_NLU_RESET_INTENT_FILTER
     payload = Dict(:siteId => siteId)
-
     Snips.publishMQTT(topic, payload)
 
-    payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => false)]
-    Snips.publishMQTT(topic, payload)
-
-    # turn on sounds:
+    # payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => false)]
+    # Snips.publishMQTT(topic, payload)
     #
-    Snips.publishMQTT(TOPIC_NOTIFICATION_ON, Dict(:siteId => siteId))
+    # # turn on sounds:
+    # #
+    # Snips.publishMQTT(TOPIC_NOTIFICATION_ON, Dict(:siteId => siteId))
 end
 
 
