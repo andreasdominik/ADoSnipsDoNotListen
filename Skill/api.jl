@@ -48,7 +48,7 @@ function resetListening(siteId)
 
     # turn on sounds:
     #
-    Snips.publishMQTT(TOPIC_NOTIFICATION_ON, Dict(:siteId => Snips.getSiteId()))
+    Snips.publishMQTT(TOPIC_NOTIFICATION_ON, Dict(:siteId => siteId))
 end
 
 
