@@ -3,6 +3,13 @@
 This is a skill for the SnipsHermesQnD framework for Snips.ai
 written in Julia.
 
+### Susi/NoSnips
+NLU (natural language understanding) definition files are added for
+English and German and make it possible to use the skill with
+Susi (Susi is no Snips) without Snips or the Snips console
+(https://github.com/andreasdominik/Susi).
+
+# Skill
 Aim of the skill is, to make the assistant stop listening, either
 - by utting a command "stop listening" (de: "hör' weg")
 - or by sending a trigger (stop listening when the TV is
