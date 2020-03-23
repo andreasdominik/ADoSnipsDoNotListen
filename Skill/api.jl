@@ -3,41 +3,43 @@
 # skill-actions:
 #
 
-function stopStartListening(;mode = :stop, siteId = "default")
+TOPIC_NOTIFICATION_ON="hermes/feedback/sound/toggleOn"
+TOPIC_NOTIFICATION_OFF="hermes/feedback/sound/toggleOff"
 
-    if mode == :stop
+TOPIC_NLU_INTENT_FILTER="hermes/dialogueManager/configure"
+TOPIC_NLU_RESET_INTENT_FILTER="hermes/dialogueManager/configureReset"
+
+
+function stopListening(; siteId = "default")
+
+    if mode == :stoss
         enable = false
-        toggle = "toggleOff"
+        toggleTopic = TOPIC_NOTIFICATION_OFF
     else
         enable = true
-        toggle = "toggleOn"
+        toggleTopic =  TOPIC_NOTIFICATION_ON
     end
 
     intents = gatherIntents()
-
     Snips.printDebug("intents: $intents")
 
     # disable all intents explicitly.
     # make payload with all intents:
     #
     topic = TOPIC_NLU_INTENT_FILTER
-    intentsList = [Dict(:intentId => intent, :enable => enable) for intent in intents]
+    intentsList = [Dict(:intentId => intent, :enable => false) for intent in intents]
 
     payload = Dict(:siteId => siteId,
                    :intents => intentsList)
     # Snips.printDebug("payload: $payload")
-
     Snips.publishMQTT(topic, payload)
 
-    # enable listen-again:
-    #
-    topic = TOPIC_NLU_INTENT_FILTER
-    payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => !enable)]
+    payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => true)]
     Snips.publishMQTT(topic, payload)
 
     # turn off sounds:
     #
-    Snips.publishMQTT("hermes/feedback/sound/$toggle", Dict(:siteId => siteId))
+    Snips.publishMQTT(TOPIC_NOTIFICATION_OFF, Dict(:siteId => siteId))
 end
 
 
@@ -49,10 +51,12 @@ function resetListening(; siteId = "default")
 
     Snips.publishMQTT(topic, payload)
 
+    payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => false)]
+    Snips.publishMQTT(topic, payload)
+    
     # turn on sounds:
     #
-    topic = TOPIC_NOTIFICATION_ON
-    Snips.publishMQTT(toptc, Dict(:siteId => Snips.getSiteId()))
+    Snips.publishMQTT(TOPIC_NOTIFICATION_ON, Dict(:siteId => Snips.getSiteId()))
 end
 
 
