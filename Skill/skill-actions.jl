@@ -21,7 +21,7 @@ function stopListenAction(topic, payload)
     Snips.printLog("action stopListenAction() started.")
 
     siteId = Snips.getSiteId()
-    stopListening(siteId = siteId)
+    stopListening(siteId)
     Snips.publishEndSession(:stop_listening)
     return false   # no command afterwards
 end
@@ -40,7 +40,7 @@ function startListenAction(topic, payload)
     Snips.printLog("action startListenAction() started.")
 
     siteId = Snips.getSiteId()
-    resetListening(siteId = siteId)
+    resetListening(siteId)
     Snips.publishEndSession(:start_listening)
 
     # normally we want to say a command afterwards!
@@ -91,10 +91,10 @@ function triggerListenAction(topic, payload)
     end
 
     if command == :stop
-        stopListening(siteId = siteId)
+        stopListening(siteId)
         Snips.publishSay(:stop_listening)
     else
-        resetListening(siteId=siteId)
+        resetListening(siteId)
         Snips.publishSay(:start_listening)
     end
 

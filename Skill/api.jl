@@ -10,15 +10,7 @@ TOPIC_NLU_INTENT_FILTER="hermes/dialogueManager/configure"
 TOPIC_NLU_RESET_INTENT_FILTER="hermes/dialogueManager/configureReset"
 
 
-function stopListening(; siteId = "default")
-
-    if mode == :stoss
-        enable = false
-        toggleTopic = TOPIC_NOTIFICATION_OFF
-    else
-        enable = true
-        toggleTopic =  TOPIC_NOTIFICATION_ON
-    end
+function stopListening(siteId)
 
     intents = gatherIntents()
     Snips.printDebug("intents: $intents")
@@ -44,7 +36,7 @@ end
 
 
 
-function resetListening(; siteId = "default")
+function resetListening(siteId)
 
     topic = TOPIC_NLU_RESET_INTENT_FILTER
     payload = Dict(:siteId => siteId)
@@ -53,7 +45,7 @@ function resetListening(; siteId = "default")
 
     payload[:intents] = [Dict(:intentId => INTENT_LISTEN_AGAIN, :enable => false)]
     Snips.publishMQTT(topic, payload)
-    
+
     # turn on sounds:
     #
     Snips.publishMQTT(TOPIC_NOTIFICATION_ON, Dict(:siteId => Snips.getSiteId()))
