@@ -82,3 +82,13 @@ function startHotword(siteId)
 
     Snips.publishHotwordOn(siteId)
 end
+
+
+function getConfigMode()
+
+    mode = Snips.getConfig(INI_MODE)
+    if mode == nothing
+        mode = MODE_HOTWORD
+    end
+    return mode
+end

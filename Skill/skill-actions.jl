@@ -21,12 +21,8 @@ function stopListenAction(topic, payload)
     Snips.printLog("action stopListenAction() started.")
 
     siteId = Snips.getSiteId()
-    mode = Snips.getConfig(INI_MODE)
-    if mode == nothing
-        mode = MODE_HOTWORD
-    end
 
-    if mode == MODE_HOTWORD
+    if getConfigMode() == MODE_HOTWORD
         stopHotword(siteId)
     else
         stopListening(siteId)
@@ -49,7 +45,7 @@ function startListenAction(topic, payload)
     Snips.printLog("action startListenAction() started.")
 
     siteId = Snips.getSiteId()
-    if mode == MODE_HOTWORD
+    if getConfigMode() == MODE_HOTWORD
         startHotword(siteId)
     else
         resetListening(siteId)
@@ -104,10 +100,19 @@ function triggerListenAction(topic, payload)
     end
 
     if command == :stop
-        stopListening(siteId)
+
+        if getConfigMode() == MODE_HOTWORD
+            stopHotword(siteId)
+        else
+            stopListening(siteId)
+        end
         Snips.publishSay(:stop_listening)
     else
-        resetListening(siteId)
+        if getConfigMode() == MODE_HOTWORD
+            startHotword(siteId)
+        else
+            resetListening(siteId)
+        end
         Snips.publishSay(:start_listening)
     end
 
