@@ -71,3 +71,14 @@ function gatherIntents()
     end
     return intents
 end
+
+
+function stopHotword(siteId)
+
+    Snips.publishHotwordOff(siteId)
+end
+
+function startHotword(siteId)
+
+    Snips.publishHotwordOn(siteId)
+end

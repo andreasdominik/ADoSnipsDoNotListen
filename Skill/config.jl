@@ -28,6 +28,10 @@ const LANG = Snips.getLanguage()
 
 const INTENT_LISTEN_AGAIN = "$DEVELOPER_NAME:ListenAgain"
 # const INTENT_LISTEN_STOP = "$DEVELOPER_NAME:DoNotListen"
+const INI_MODE  = "mode"
+const MODE_HOTWORD = "hotword"
+const MODE_NLU = "nlu"
+
 
 Snips.registerIntentAction("ListenAgain", startListenAction)
 Snips.registerIntentAction("DoNotListen", stopListenAction)

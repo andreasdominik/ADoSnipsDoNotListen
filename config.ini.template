@@ -1,5 +1,9 @@
 [global]
-language=de
+
+# if mode=hotword, hotword detection is switched off;
+# if mode=nlu, listed intents are ignored by the NLU
+#
+mode=hotword
 
 # list all intents that should be deactivated
 # during media playback:

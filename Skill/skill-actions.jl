@@ -21,7 +21,16 @@ function stopListenAction(topic, payload)
     Snips.printLog("action stopListenAction() started.")
 
     siteId = Snips.getSiteId()
-    stopListening(siteId)
+    mode = Snips.getConfig(INI_MODE)
+    if mode == nothing
+        mode = MODE_HOTWORD
+    end
+
+    if mode == MODE_HOTWORD
+        stopHotword(siteId)
+    else
+        stopListening(siteId)
+    end
     Snips.publishEndSession(:stop_listening)
     return false   # no command afterwards
 end
@@ -40,7 +49,11 @@ function startListenAction(topic, payload)
     Snips.printLog("action startListenAction() started.")
 
     siteId = Snips.getSiteId()
-    resetListening(siteId)
+    if mode == MODE_HOTWORD
+        startHotword(siteId)
+    else
+        resetListening(siteId)
+    end
     Snips.publishEndSession(:start_listening)
 
     # normally we want to say a command afterwards!
