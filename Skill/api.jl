@@ -73,16 +73,20 @@ function gatherIntents()
 end
 
 
-function stopHotword(siteId)
+function startStopHotword(siteId, startStop)
 
-    Snips.publishHotwordOff(siteId)
+
+    if startStop == :off
+        topic = "susi/dialogueManager/stopListen"
+    else
+        topic = "susi/dialogueManager/startListen"
+    end
+
+    payload = Dict(:siteId=>siteId,
+                   :sessionId=>"no_session")
+
+    publishMQTT(topic, payload)
 end
-
-function startHotword(siteId)
-
-    Snips.publishHotwordOn(siteId)
-end
-
 
 function getConfigMode()
 

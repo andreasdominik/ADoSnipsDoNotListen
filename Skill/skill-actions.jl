@@ -23,7 +23,7 @@ function stopListenAction(topic, payload)
     siteId = Snips.getSiteId()
 
     if getConfigMode() == MODE_HOTWORD
-        stopHotword(siteId)
+        startStopHotword(siteId, :off)
     else
         stopListening(siteId)
     end
@@ -46,7 +46,7 @@ function startListenAction(topic, payload)
 
     siteId = Snips.getSiteId()
     if getConfigMode() == MODE_HOTWORD
-        startHotword(siteId)
+        startStopHotword(siteId, :on)
     else
         resetListening(siteId)
     end
@@ -100,7 +100,6 @@ function triggerListenAction(topic, payload)
     end
 
     if command == :stop
-
         if getConfigMode() == MODE_HOTWORD
             stopHotword(siteId)
         else
