@@ -91,6 +91,7 @@ end
 function getConfigMode()
 
     mode = Snips.getConfig(INI_MODE)
+    Snips.printDebug("mode = $mode")
     if mode == nothing
         mode = MODE_HOTWORD
     end

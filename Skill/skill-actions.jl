@@ -22,6 +22,7 @@ function stopListenAction(topic, payload)
 
     siteId = Snips.getSiteId()
 
+    Snips.printDebug("siteId = $siteId")
     if getConfigMode() == MODE_HOTWORD
         startStopHotword(siteId, :off)
     else
