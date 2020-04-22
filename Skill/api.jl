@@ -85,7 +85,7 @@ function startStopHotword(siteId, startStop)
     payload = Dict(:siteId=>siteId,
                    :sessionId=>"no_session")
 
-    publishMQTT(topic, payload)
+    Snips.publishMQTT(topic, payload)
 end
 
 function getConfigMode()
@@ -95,5 +95,6 @@ function getConfigMode()
     if mode == nothing
         mode = MODE_HOTWORD
     end
+    Snips.printDebug("mode = $mode")
     return mode
 end
